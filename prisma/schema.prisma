@@ -15,19 +15,32 @@ model User {
   name       String
   email      String   @unique
   created_at DateTime @default(now())
-  task       Task[]
+  updated_at DateTime @default(now())
+  //task       Task[]
+  // userTokens UserTokens[]
 
   @@map("users")
 }
 
-model Task {
-  id          String   @id @default(uuid())
-  name        String
-  description String?
-  created_at  DateTime @default(now())
-  updated_at  DateTime @default(now())
-  User        User     @relation(fields: [userId], references: [id])
-  userId      String
+//model Task {
+//id          String   @id @default(uuid())
+//name        String
+//description String?
+// created_at  DateTime @default(now())
+//updated_at  DateTime @default(now())
+//User        User     @relation(fields: [user_id], references: [id])
+// user_id     String
 
-  @@map("tasks")
-}
+// @@map("tasks")
+//}
+
+//model UserTokens {
+//id         String   @id @default(uuid())
+//token      String   @unique @db.Uuid
+//User       User     @relation(fields: [user_id], references: [id])
+//user_id    String
+//created_at DateTime @default(now())
+//updated_at DateTime @default(now())
+
+// @@map("user_tokens")
+//}
