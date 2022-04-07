@@ -3,6 +3,6 @@ import { IUser } from '../models/IUser';
 
 interface IUsersRepository {
   create(user: ICreateUser): Promise<IUser>;
-  findByEmail(email: string): Promise<IUser | null | undefined>;
+  exists(email: string): Promise<boolean>;
 }
 export { IUsersRepository };

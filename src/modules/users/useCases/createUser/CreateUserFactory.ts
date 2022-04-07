@@ -1,4 +1,4 @@
-import { UsersRepository } from '@modules/users/repositories/UsersRepository';
+import { UsersRepository } from '../../repositories/UsersRepository';
 import { CreateUserController } from './CreateUserController';
 import { CreateUserService } from './CreateUserService';
 

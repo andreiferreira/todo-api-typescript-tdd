@@ -1,5 +1,4 @@
-import { prisma } from 'src/database/client';
-import { User } from '../entities/User';
+import { prisma } from './../../../database/client';
 import { ICreateUser } from '../models/ICreateUser';
 import { IUser } from '../models/IUser';
 import { IUsersRepository } from './IUsersRepository';
@@ -15,11 +14,14 @@ class UsersRepository implements IUsersRepository {
 
     return user;
   }
-  async findByEmail(email: string): Promise<User | null> {
+  async exists(email: string): Promise<boolean> {
     const user = await prisma.user.findUnique({
-      where: { email },
+      where: {
+        email,
+      },
     });
-    return user;
+
+    return !!user;
   }
 }
 export { UsersRepository };

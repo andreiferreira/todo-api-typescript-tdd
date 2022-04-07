@@ -8,13 +8,14 @@ class UsersRepositoryInMemory implements IUsersRepository {
   async create(user: User): Promise<User> {
     Object.assign(user, {
       id: uuid(),
+      created_at: new Date(),
     });
 
     this.users.push(user);
     return user;
   }
-  async findByEmail(email: string): Promise<User | undefined> {
-    const user = this.users.find(user => user.email === email);
+  async exists(email: string): Promise<boolean> {
+    const user = this.users.some(user => user.email === email);
     return user;
   }
 }
