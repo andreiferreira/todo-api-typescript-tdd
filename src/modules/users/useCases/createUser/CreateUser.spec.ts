@@ -1,4 +1,4 @@
-import { User } from '@modules/users/entities/User';
+/* import { User } from '@modules/users/entities/User';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { UsersRepositoryInMemory } from './../../repositories/in-memory/UsersRepositoryInMemory';
 import { CreateUserService } from './CreateUserService';
@@ -21,7 +21,7 @@ describe('Create use', () => {
     expect(user).toHaveProperty('id');
   });
 
-  /*   it('should not create a existent user', async () => {
+  it('should not create a existent user', async () => {
     const newUser: User = {
       name: 'User 01',
       email: 'user01@email.com',
@@ -32,5 +32,6 @@ describe('Create use', () => {
     await expect(createUserService.execute(newUser)).rejects.toEqual(
       new Error('User already exists!'),
     );
-  }); */
+  });
 });
+ */

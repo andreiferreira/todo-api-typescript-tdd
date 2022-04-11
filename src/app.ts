@@ -1,10 +1,14 @@
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
-import routes from './routes/routes';
+import 'reflect-metadata';
+import routes from './shared/routes';
+import '../src/shared/container';
 
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(routes);
 
 app.use(
@@ -20,5 +24,9 @@ app.use(
     });
   },
 );
+
+app.get('/', (request: Request, response: Response) => {
+  response.send('opa');
+});
 
 export { app };

@@ -1,21 +1,17 @@
 import { IUser } from '../models/IUser';
-
+import { v4 as uuid } from 'uuid';
 class User implements IUser {
-  id?: string;
+  id: string;
   name: string;
   email: string;
-  created_at?: Date;
+  password: string;
+  created_at: Date;
+  updated_at: Date;
 
-  private constructor({ name, email }: User) {
-    return Object.assign(this, {
-      name,
-      email,
-    });
-  }
-
-  static create({ name, email }: User) {
-    const user = new User({ name, email });
-    return user;
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
+    }
   }
 }
 export { User };

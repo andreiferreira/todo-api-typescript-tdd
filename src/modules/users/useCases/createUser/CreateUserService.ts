@@ -1,20 +1,29 @@
-import { User } from '../../entities/User';
-import { ICreateUser } from '@modules/users/models/ICreateUser';
-import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
+import { IUsersRepository } from '../../repositories/IUsersRepository';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 class CreateUserService {
-  constructor(private usersRepository: IUsersRepository) {}
+  constructor(
+    @inject('UsersRepository') private usersRepository: IUsersRepository,
+  ) {}
 
-  async execute({ name, email }: ICreateUser) {
-    const userAlreadyExists = await this.usersRepository.exists(email);
+  public async execute(
+    name: string,
+    email: string,
+    password: string,
+  ): Promise<void> {
+    const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
     if (userAlreadyExists) {
       throw new Error('User already exists');
     }
 
-    const userCreate = User.create({ name, email });
-    const user = await this.usersRepository.create(userCreate);
-    return user;
+    console.log('service');
+    const newUser = await this.usersRepository.create({
+      name,
+      email,
+      password,
+    });
   }
 }
 export { CreateUserService };

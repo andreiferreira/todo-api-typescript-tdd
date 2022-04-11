@@ -1,27 +1,31 @@
 import { prisma } from './../../../database/client';
 import { ICreateUser } from '../models/ICreateUser';
-import { IUser } from '../models/IUser';
 import { IUsersRepository } from './IUsersRepository';
+import { PrismaClient, User } from '@prisma/client';
 
 class UsersRepository implements IUsersRepository {
-  async create({ name, email }: ICreateUser): Promise<IUser> {
-    const user = await prisma.user.create({
+  private repository: PrismaClient;
+
+  constructor() {
+    this.repository = prisma;
+  }
+  async create({ name, email, password }: ICreateUser): Promise<void> {
+    const user = this.repository.user.create({
       data: {
         name,
         email,
+        password,
+      },
+    });
+  }
+  async findByEmail(email: string): Promise<User | null> {
+    const user = await this.repository.user.findUnique({
+      where: {
+        email: email,
       },
     });
 
     return user;
-  }
-  async exists(email: string): Promise<boolean> {
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-
-    return !!user;
   }
 }
 export { UsersRepository };
